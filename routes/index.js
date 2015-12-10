@@ -7,6 +7,7 @@ var router = express.Router();
 function route(app) {
 
     app.get('/', function(req, res) {
+        console.log(req.hostname);
         res.render('index', {
             title: '主页',
             user: req.session.user,
@@ -67,14 +68,39 @@ function route(app) {
         res.render('login', {
             title: '登录'
         });
+    console.log("login");
     });
-    app.post('/login', function(req, res) {});
+    app.post('/login', function(req, res) {
+        var name = req.body.name;
+        var md5 = crypto.createHash("md5");
+        var password = md5.update(req.body.password).digest("hex");
+        User.get(name, function(err, user) {
+            if (!user) {
+                req.flash("error", "用户不存在");
+                req.redirect("/login");
+            }
+
+            if (password != user.password) {
+                req.flash("error", "密码错误");
+                req.redirect("/login");
+            }
+            req.session.user = user;
+            req.flash("success", "登录成功");
+            req.redirect("/");
+
+        });
+
+    });
     app.get('/post', function(req, res) {
         res.render('post', {
             title: '发表'
         });
     });
     app.post('/post', function(req, res) {});
-    app.get('/logout', function(req, res) {});
+    app.get('/logout', function(req, res) {
+        req.session.user = null;
+        req.flash('success', '登出成功!');
+        res.redirect('/'); 
+    });
 }
 module.exports = route;

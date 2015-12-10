@@ -16,7 +16,7 @@ User.prototype.save = function(callback) {
         password: this.password,
         email: this.email
     };
-console.log("insert: "+JSON.stringify(user) );
+    console.log("insert: " + JSON.stringify(user));
 
     //打开数据库
     mongodb.open(function(err, db) {
@@ -37,9 +37,8 @@ console.log("insert: "+JSON.stringify(user) );
                 if (err) {
                     return callback(err); //错误，返回 err 信息
                 }
-console.log("insert: "+JSON.stringify(result.ops[0]) );
-var ret =result.ops[0];
-                callback(null,ret ); //成功！err 为 null，并返回存储后的用户文档
+                var ret = result.ops[0];
+                callback(null, ret); //成功！err 为 null，并返回存储后的用户文档
             });
         });
     });
@@ -66,7 +65,6 @@ User.get = function(name, callback) {
                 if (err) {
                     return callback(err); //失败！返回 err 信息
                 }
-                console.log("get: "+JSON.stringify(user) );
                 callback(null, user); //成功！返回查询的用户信息
             });
         });
