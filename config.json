@@ -1,0 +1,10 @@
+{
+    "mongo": {
+        "host": "localhost",
+        "port": 27017,
+        "db": "blog",
+        "max": 10,
+        "min": 1,
+        "timeout": 3600000
+    }
+}

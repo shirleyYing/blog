@@ -14,11 +14,9 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "express-session": "^1.12.1",
-    "jssha": "^2.0.2",
     "mongodb": "~2.0.0",
     "morgan": "~1.6.1",
-    "request": "^2.67.0",
     "serve-favicon": "~2.3.0",
-    "xml2js": "^0.4.15"
+    "generic-pool": "*"    
   }
 }
